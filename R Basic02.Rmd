@@ -1,0 +1,119 @@
+---
+title: "R Basic02"
+author: "許sir/學號XXXXXXX "
+
+---
+
+### [.設定所需的函式庫(libraries)以及載入資料]
+```{r message=FALSE, warning=FALSE, results='hide'}
+#install.packages("ggplot2")
+rm()  #清除所有物件 
+library(graphics)
+library(ggplot2)
+
+data(iris)
+data(cars)#內建Cars的資料集，為1920s年 car 車速與煞車距離
+setwd("d:/Rdata Practice/R BasicLab") #設定工作區
+```
+### [第五部份].劃圖
+
+#### **5-1.Simple Plots-Bar plot**
+```{r message=FALSE, warning=FALSE}
+x=sample(1:150,50) #從1~150中隨機挑選50個數字
+plot(iris[x,5])
+
+y=table(iris[x,5])
+barplot(y,horiz=TRUE,las=1)
+```
+
+#### **5-2.Simple Plots-Pie**
+```{r message=FALSE, warning=FALSE}
+pie(y)
+```
+
+#### **5-3.Simple Plots-Scatter Plot**
+```{r message=FALSE, warning=FALSE}
+plot(iris[,3:4])
+plot(Petal.Width~Petal.Length,data=iris)
+
+plot(iris[,1:3])
+plot(~Sepal.Length+Sepal.Width+Petal.Length,data=iris)
+```
+
+#### **5-4.Simple Plots-Box plot**
+```{r message=FALSE, warning=FALSE}
+plot(iris[,5],iris[,1])
+
+boxplot(iris[,1]~iris[,5])
+boxplot(Sepal.Length~Species,data=iris)
+
+boxplot(iris[,1:2])
+```
+
+#### **5-5.Simple Plots-Histgram**
+```{r message=FALSE, warning=FALSE}
+hist(iris[, 1], breaks = 4)
+```
+
+#### **5-6.如果我想要畫很多張圖在一個頁面上**
+```{r message=FALSE, warning=FALSE}
+par(mfrow=c(2,2))
+plot(iris[x,5])
+plot(Petal.Width~Petal.Length,data=iris)
+boxplot(Sepal.Length~Species,data=iris)
+hist(iris[, 1], breaks = 4)
+
+dev.off()#把圖型清除
+```
+### [第六部份].R-Markdown Demo
+R Markdown 文件的常用語法
+==============================
+
+## 6-1. 字型大小：
+# 管理科學
+## 管理科學
+### 管理科學
+#### 管理科學
+##### 管理科學
+###### 管理科學
+
+## 6-2. 文句強調：
+### *斜體* and **粗體**
+
+## 6-3. 條列語句：
+
+### 你覺得寫程式___:
+- 1. 令人開心
+- 2. 覺得沮喪
+- 3. 超不爽
+- 4. 輕鬆愉快
+
+## 6-4. 表格：
+第一組 | 第二組| 第三組| 第四組| 第五組
+-------|-------|-------|-------|-------
+樣本1  | 樣本2 | 樣本3 | 樣本4 | 樣本5
+樣本6  | 樣本7 | 樣本8 | 樣本9 | 樣本10
+
+## 6-5. 上標：
+### 單位：km^2^
+
+
+## 6-6. 分隔線：
+***
+
+## 6-7. 插入 R Code Chuncks：
+
+* 設定所需的函式庫(libraries)以及指定載入資料的變數
+```{r message=FALSE, warning=FALSE}
+rm(list=ls())#清除所有物件
+
+#data(cars)#內建Cars的資料集，為1920s年 car 車速與煞車距離
+head(cars)
+summary(cars)
+str(cars)
+
+plot(dist ~ speed, data=cars)
+grid() #Add dotted lines to the plot to form a background grid
+abline(a=-17.6, b=3.9, col="red") #增加趨勢線(a:intercept, b:slope)
+title("1920s car stopping distances (from the 'cars' dataset)") 
+```
